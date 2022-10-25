@@ -76,67 +76,44 @@ def read_folder(p):
             read_folder(file)
             # check for empty folder
             try:
-                if file.suffix == '' and file != AUDIO and file != VIDEO and file != ARCHIVES and file != OTHER and file != IMAGES and file != DOCUMENTS:
+                if file.suffix == '' and file not in (AUDIO, VIDEO, ARCHIVES, OTHER, IMAGES, DOCUMENTS):
                     file.rmdir()
             except:
                 print('FOLDER IS NOT EMPTY')
         # check for extensions
         elif file.suffix[1:].upper() in image_ext:
-            image_list.append(file.rename(p / Path(normalize(file.stem) + file.suffix)))
+            try:
+                shutil.move(file.rename(p / Path(normalize(file.stem) + file.suffix)), IMAGES)
+            except:
+                print(f'{file} is already in folder images')
+
         elif file.suffix[1:].upper() in video_ext:
-            video_list.append(file.rename(p / Path(normalize(file.stem) + file.suffix)))
+            try:
+                shutil.move(file.rename(p / Path(normalize(file.stem) + file.suffix)), VIDEO)
+            except:
+                print(f'{file} is already in folder video')
+
         elif file.suffix[1:].upper() in document_ext:
-            document_list.append(file.rename(p / Path(normalize(file.stem) + file.suffix)))
+            try:
+                shutil.move(file.rename(p / Path(normalize(file.stem) + file.suffix)), DOCUMENTS)
+            except:
+                print(f'{file} is already in folder documents')
+
         elif file.suffix[1:].upper() in music_ext:
-            music_list.append(file.rename(p / Path(normalize(file.stem) + file.suffix)))
+            try:
+                shutil.move(file.rename(p / Path(normalize(file.stem) + file.suffix)), AUDIO)
+            except:
+                print(f'{file} is already in folder audio')
         elif file.suffix[1:].upper() in archive_ext:
             try:
                 shutil.unpack_archive(file.rename(p / Path(normalize(file.stem) + file.suffix)), ARCHIVES / file.stem)
             except:
-                print('f{file} is already in folder!')
+                print(f'{file} is already in folder!')
         else:
-            other_ext_list.append(file.rename(p / Path(normalize(file.stem) + file.suffix)))
+            try:
+                shutil.move(file.rename(p / Path(normalize(file.stem) + file.suffix)), OTHER)
+            except:
+                print(f'{file} is already in foder other')
     return image_list, video_list, document_list, music_list, other_ext_list
 
 read_folder(p)
-
-for i in image_list:
-    try:
-        shutil.move(i, IMAGES)
-    except:
-        print(f'{i.name} already in folder IMAGES')
-
-for i in video_list:
-    try:
-        shutil.move(i, VIDEO)
-    except:
-        print(f'{i.name} already in folder VIDEO')
-
-for i in document_list:
-    try:
-        shutil.move(i, DOCUMENTS)
-    except:
-        print(f'{i.name} already in folder DOCUMENTS')
-
-for i in music_list:
-    try:
-        shutil.move(i, AUDIO)
-    except:
-        print(f'{i.name} already in folder AUDIO')
-
-for i in other_ext_list:
-    try:
-        shutil.move(i, OTHER)
-    except:
-        print(f'{i.name} already in folder OTHER')
-
-
-
-
-
-
-
-
-
-
-
