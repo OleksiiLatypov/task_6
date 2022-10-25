@@ -116,4 +116,6 @@ def read_folder(p):
                 print(f'{file} is already in foder other')
     return image_list, video_list, document_list, music_list, other_ext_list
 
-read_folder(p)
+if __name__ == '__main__':
+    print(f'Start in folder {p}')
+    read_folder(Path(p))
