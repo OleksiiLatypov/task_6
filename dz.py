@@ -102,25 +102,25 @@ read_folder(p)
 
 for i in image_list:
     try:
-            shutil.move(i, IMAGES)
+        shutil.move(i, IMAGES)
     except:
         print(f'{i.name} already in folder IMAGES')
 
 for i in video_list:
     try:
-            shutil.move(i, VIDEO)
+        shutil.move(i, VIDEO)
     except:
         print(f'{i.name} already in folder VIDEO')
 
 for i in document_list:
     try:
-            shutil.move(i, DOCUMENTS)
+        shutil.move(i, DOCUMENTS)
     except:
         print(f'{i.name} already in folder DOCUMENTS')
 
 for i in music_list:
     try:
-            shutil.move(i, AUDIO)
+        shutil.move(i, AUDIO)
     except:
         print(f'{i.name} already in folder AUDIO')
 
